@@ -1,0 +1,20 @@
+conda install -c https://conda.anaconda.org/conda-forge wordcloud
+set-ExecutionPolicy Unrestricted  
+streamlit will work in python 3.7
+error in media count and percentage
+emoji has to be downgrade to 1.6.3
+sklearn 0.13
+
+Windows 10
+
+Press the Windows key
+Type SystemPropertiesAdvanced
+Click Run as administrator
+Under Performance, click Settings
+Select the Advanced tab
+Select Change...
+Uncheck Automatically managing paging file size for all drives
+Then select Custom size and fill in the appropriate size
+Press Set then press OK then exit from the Virtual Memory, Performance Options, and System Properties Dialog
+Reboot your system
+Note: I did not have the enough memory on my system for the ~282GB in this example but for my particular case this worked.

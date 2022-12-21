@@ -1,0 +1,1 @@
+Detect_The_lang("The man is green")
