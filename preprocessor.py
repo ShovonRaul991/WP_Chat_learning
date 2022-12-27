@@ -49,8 +49,8 @@ def pre_process(data):
     df['period'] = period
 
     # without lambda pipeline attributes can't be called
-    df['language'] = df['message'].apply(lambda x: Detection_Function.Detect_The_lang(x))
-    df['sentiment'] = df['message'].apply(lambda x: Detection_Function.Detect_The_senti(x))  
+    #df['language'] = df['message'].apply(lambda x: Detection_Function.Detect_The_lang(x))
+    #df['sentiment'] = df['message'].apply(lambda x: Detection_Function.Detect_The_senti(x))  
 
     return df
 
