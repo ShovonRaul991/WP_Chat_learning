@@ -131,4 +131,9 @@ if uploaded_file is not None:
         #st.pyplot(fig)
         st.dataframe(emoji_df)
 
+    if st.sidebar.button("Language Detection Analysis:"):
+        eng_dataframe, noneng_dataframe, eng_count_message, non_eng_count_message = helper.message_language_count(selected_user,df);
+        
+        st.title("Messages other than english are in this dataframe below: ")
+        st.dataframe(noneng_dataframe)
     

@@ -3,7 +3,7 @@ from urlextract import URLExtract
 from wordcloud import WordCloud
 from collections import Counter
 import emoji
-
+import Detection_Function
 
 # from nltk.sentiment.vader import SentimentIntensityAnalyzer
 # import nltk
@@ -71,6 +71,7 @@ def create_word_cloud(selected_user, df):
 
 
 def most_common_words(selected_user, df):
+    
     f = open('stop_hinglish.txt', 'r')
     stop_words = f.read()
 
@@ -177,11 +178,14 @@ def sentiment_analyse(selected_user, df):
 def message_language_count(selected_user, df):
     if selected_user != 'Overall':
         df = df[df['user'] == selected_user]
+    df['language'] = df['message'].apply(lambda x: Detection_Function.Detect_The_lang(x))
 
     temp = df[df['user'] != 'group_notification']
     # temp = temp[temp['message'] != '<media omitted>\n']
     temp = temp[temp['message'] != '<Media omitted>\n']
     temp = temp[temp['message'] != 'This message was deteted\n']
+    temp['message'] = temp['message'].str.replace('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', 'This is an url\n')
+    temp = temp[temp['message'] != 'This is an url\n']
 
     df_eng = temp[temp['language']=='English']
     df_non_eng = temp[temp['language'] != 'English']
