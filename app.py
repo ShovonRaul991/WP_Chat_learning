@@ -131,9 +131,52 @@ if uploaded_file is not None:
         #st.pyplot(fig)
         st.dataframe(emoji_df)
 
-    if st.sidebar.button("Language Detection Analysis:"):
-        eng_dataframe, noneng_dataframe, eng_count_message, non_eng_count_message = helper.message_language_count(selected_user,df);
+    if st.sidebar.button("Language & Sentiment Detection:"):
+        eng_dataframe, noneng_dataframe, eng_count_message, non_eng_count_message = helper.message_language_count(selected_user,df)
         
         st.title("Messages other than english are in this dataframe below: ")
-        st.dataframe(noneng_dataframe)
+        if(noneng_dataframe.shape):
+            st.dataframe(noneng_dataframe)
     
+        colx, coly = st.columns(2)
+
+        with colx:
+            st.header("Total number of english messages: ");
+            st.title(eng_count_message)
+
+            st.header("Total Number of non english messages: ");
+            st.title(non_eng_count_message)
+
+        if selected_user == "Overall":
+            st.title("User using other languages mostly: ")
+            x, y = helper.most_busy_user(noneng_dataframe)
+            fig, ax = plt.subplots()
+
+            colm, coln = st.columns(2)
+
+            with colm:
+                st.dataframe(y)
+
+            with coln:
+                ax.bar(x.index, x.values, color='Red')
+                plt.xticks(rotation='vertical')
+                st.pyplot(fig)
+
+        st.title("Sentiment Analysis Results: ")
+        st.title("Message dataset with corresponding sentiments: ")
+        
+        sentimentDataset = helper.message_sentiment_count(selected_user,df)
+        st.dataframe(sentimentDataset)
+        m, n = helper.seeSentiment(selected_user,sentimentDataset)
+        fig, ax = plt.subplots()
+
+        colx, coly = st.columns(2)
+
+        with colx:
+                st.dataframe(n)
+
+        with coly:
+            st.title("Graphical sentiment analysis: ")
+            ax.bar(m.index, m.values, color='yellow')
+            plt.xticks(rotation='vertical')
+            st.pyplot(fig)

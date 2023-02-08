@@ -51,7 +51,7 @@ def create_word_cloud(selected_user, df):
 
     temp = df[df['user'] != 'group_notification']
     # temp = temp[temp['message'] != '<media omitted>\n']
-    temp = temp[temp['message'] != '<Media omitted>\n']
+    temp = temp[temp['message'] != '<Media omitted>']
     temp = temp[temp['message'] != 'This message was deteted\n']
 
     def remove_stop_words(message):
@@ -196,4 +196,30 @@ def message_language_count(selected_user, df):
     return df_eng, df_non_eng, eng_count, non_eng_count
 
 
+def message_sentiment_count(selected_user, df):
+    if selected_user != 'Overall':
+        df = df[df['user'] == selected_user]
+    df['sentiment'] = df['message'].apply(lambda x: Detection_Function.Detect_The_senti(x))
 
+    temp = df[df['user'] != 'group_notification']
+    # temp = temp[temp['message'] != '<media omitted>\n']
+    temp = temp[temp['message'] != '<Media omitted>\n']
+    temp = temp[temp['message'] != 'This message was deteted\n']
+    '''
+    temp['message'] = temp['message'].str.replace(
+        'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', 'This is an url\n')
+    temp = temp[temp['message'] != 'This is an url\n']
+    '''
+    
+    return temp
+
+
+def seeSentiment(selected_user,df):
+    if selected_user != 'Overall':
+        df = df[df['user'] == selected_user]
+    
+    x = df['sentiment'].value_counts().head()
+    
+    dfx = round((df['sentiment'].value_counts() / df.shape[0]) * 100, 2)
+        
+    return x, dfx
