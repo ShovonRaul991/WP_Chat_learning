@@ -2,7 +2,7 @@ import joblib
 from sklearn.pipeline import Pipeline
 
 
-language_dec = joblib.load(open("language_detection_model", "rb"))
+language_dec = joblib.load(open("Language_detection_model", "rb"))
 sentiment_dec = joblib.load(open("Sentiment_detection_model", 'rb'))
 
 
