@@ -134,9 +134,10 @@ if uploaded_file is not None:
     if st.sidebar.button("Language & Sentiment Detection:"):
         eng_dataframe, noneng_dataframe, eng_count_message, non_eng_count_message = helper.message_language_count(selected_user,df)
         
-        st.title("Messages other than english are in this dataframe below: ")
-        if(noneng_dataframe.shape):
-            st.dataframe(noneng_dataframe)
+        if(noneng_dataframe.shape[0]!=0):
+            st.title("Messages other than english are in this dataframe below: ")
+            if(noneng_dataframe.shape):
+                st.dataframe(noneng_dataframe)
     
         colx, coly = st.columns(2)
 
@@ -173,10 +174,82 @@ if uploaded_file is not None:
         colx, coly = st.columns(2)
 
         with colx:
+                st.title("Messages parcentage based on type:")
                 st.dataframe(n)
 
         with coly:
             st.title("Graphical sentiment analysis: ")
-            ax.bar(m.index, m.values, color='yellow')
+            ax.bar(m.index, m.values, color='green')
             plt.xticks(rotation='vertical')
             st.pyplot(fig)
+
+        joy_data,sadness_data,fear_data,anger_data,surprise_data,neutral_data,disgust_data,shame_data = helper.word_in_emotion(selected_user,sentimentDataset)
+        
+
+        
+
+        if(joy_data.shape[0]!=0):
+            st.title("WordCloud Joy")
+            wordcloud_image_joy = helper.create_word_cloud(selected_user, joy_data)
+            fig, ax = plt.subplots()
+            ax.imshow(wordcloud_image_joy)
+            st.pyplot(fig)
+        if(sadness_data.shape[0]!=0):
+            st.title("WordCloud sadness")
+            wordcloud_image_sadness = helper.create_word_cloud(selected_user, sadness_data)
+            fig, ax = plt.subplots()
+            ax.imshow(wordcloud_image_sadness)
+            st.pyplot(fig)
+        if(fear_data.shape[0]!=0):
+            st.title("WordCloud fear")
+            wordcloud_image_fear = helper.create_word_cloud(selected_user, fear_data)
+            fig, ax = plt.subplots()
+            ax.imshow(wordcloud_image_fear)
+            st.pyplot(fig)
+        if(anger_data.shape[0]!=0):
+            st.title("WordCloud anger")
+            wordcloud_image_anger = helper.create_word_cloud(selected_user, anger_data)
+            fig, ax = plt.subplots()
+            ax.imshow(wordcloud_image_anger)
+            st.pyplot(fig)
+        if(surprise_data.shape[0]!=0):
+            st.title("WordCloud surprise")
+            wordcloud_image_surprise = helper.create_word_cloud(selected_user, surprise_data)
+            fig, ax = plt.subplots()
+            ax.imshow(wordcloud_image_surprise)
+            st.pyplot(fig)
+        if(neutral_data.shape[0]!=0):
+            st.title("WordCloud neutral")
+            wordcloud_image_neutral = helper.create_word_cloud(selected_user, neutral_data)
+            fig, ax = plt.subplots()
+            ax.imshow(wordcloud_image_neutral)
+            st.pyplot(fig)
+        if(disgust_data.shape[0]!=0):
+            st.title("WordCloud disgust")
+            wordcloud_image_disgust = helper.create_word_cloud(selected_user, disgust_data)
+            fig, ax = plt.subplots()
+            ax.imshow(wordcloud_image_disgust)
+            st.pyplot(fig)
+        if(shame_data.shape[0]!=0):
+            st.title("WordCloud shame")
+            wordcloud_image_shame = helper.create_word_cloud(selected_user, shame_data)
+            fig, ax = plt.subplots()
+            ax.imshow(wordcloud_image_shame)
+            st.pyplot(fig)
+
+        # st.title("Joy")
+        # st.dataframe(a)
+        # st.title("sadness")
+        # st.dataframe(b)
+        # st.title("fear")
+        # st.dataframe(c)
+        # st.title("anger")
+        # st.dataframe(d)
+        # st.title("surprise")
+        # st.dataframe(e)
+        # st.title("neutral")
+        # st.dataframe(f)
+        # st.title("disgust")
+        # st.dataframe(g)
+        # st.title("shame")
+        # st.dataframe(h)

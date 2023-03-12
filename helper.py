@@ -64,7 +64,7 @@ def create_word_cloud(selected_user, df):
     if selected_user != 'Overall':
         df = df[df['user'] == selected_user]
 
-    wc = WordCloud(width=500, height=500, min_font_size=5, background_color="white")
+    wc = WordCloud(width=1000, height=1000, min_font_size=5, background_color="black")
     temp['message'] = temp['message'].apply(remove_stop_words)
     df_wc = wc.generate(df['message'].str.cat(sep=" "))
     return df_wc
@@ -223,3 +223,18 @@ def seeSentiment(selected_user,df):
     dfx = round((df['sentiment'].value_counts() / df.shape[0]) * 100, 2)
         
     return x, dfx
+
+def word_in_emotion(selected_user,df):
+    if selected_user != 'Overall':
+        df = df[df['user'] == selected_user]
+
+    df_joy = df[df['sentiment']=='joy']
+    df_sadness = df[df['sentiment']=='sadness']
+    df_fear = df[df['sentiment']=='fear']
+    df_anger = df[df['sentiment']=='anger']
+    df_surprise = df[df['sentiment']=='surprise']
+    df_neutral = df[df['sentiment']=='neutral']
+    df_disgust = df[df['sentiment']=='disgust']
+    df_shame = df[df['sentiment']=='shame']
+
+    return df_joy,df_sadness,df_fear,df_anger,df_surprise,df_neutral,df_disgust,df_shame
